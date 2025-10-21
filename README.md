@@ -103,18 +103,6 @@ Add this configuration to your Claude Desktop config file:
 
 **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
 
-Using command-line arguments:
-```json
-{
-  "mcpServers": {
-    "miro": {
-      "command": "/path/to/miro-mcp-proxy",
-      "args": ["--token", "your-token", "--email", "you@example.com"]
-    }
-  }
-}
-```
-
 Or using environment variables (recommended):
 ```json
 {
@@ -125,6 +113,19 @@ Or using environment variables (recommended):
         "MIRO_ACCESS_TOKEN": "your-token",
         "MIRO_USER_EMAIL": "you@example.com"
       }
+    }
+  }
+}
+```
+
+Using command-line arguments:
+
+```json
+{
+  "mcpServers": {
+    "miro": {
+      "command": "/path/to/miro-mcp-proxy",
+      "args": ["--token", "your-token", "--email", "you@example.com"]
     }
   }
 }
