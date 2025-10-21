@@ -1,0 +1,196 @@
+#!/usr/bin/env bash
+# MCP SSE to stdio proxy for Miro Design System
+# Bridges the Miro Design System SSE MCP server to Claude Desktop's stdio transport
+#
+# Usage:
+#   miro-mcp-proxy [options]
+#
+# Options:
+#   --url <url>              MCP server URL (default: https://miro.design/api/mcp)
+#   --token <token>          Authorization token
+#   --email <email>          User email
+#   --help, -h              Show this help message
+#
+# Environment Variables:
+#   MCP_SERVER_URL          MCP server URL
+#   MIRO_ACCESS_TOKEN       Authorization token (Bearer)
+#   MIRO_USER_EMAIL         User email
+
+set -euo pipefail
+
+# Load .env file if it exists in the script's directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [[ -f "$SCRIPT_DIR/.env" ]]; then
+    # Source .env file, handling both quoted and unquoted values
+    set -a
+    source "$SCRIPT_DIR/.env"
+    set +a
+fi
+
+# Default values
+URL="${MCP_SERVER_URL:-https://miro.design/api/mcp}"
+TOKEN="${MIRO_ACCESS_TOKEN:-}"
+EMAIL="${MIRO_USER_EMAIL:-}"
+
+# Show help message
+show_help() {
+    cat >&2 << EOF
+
+MCP SSE to stdio proxy for Miro Design System
+
+Usage:
+  miro-mcp-proxy [options]
+
+Options:
+  --url <url>              MCP server URL (default: https://miro.design/api/mcp)
+  --token <token>          Authorization token
+  --email <email>          User email
+  --help, -h              Show this help message
+
+Environment Variables:
+  MCP_SERVER_URL          MCP server URL
+  MIRO_ACCESS_TOKEN       Authorization token (Bearer)
+  MIRO_USER_EMAIL         User email
+
+Example:
+  miro-mcp-proxy --token "your-token" --email "you@example.com"
+
+  # Or using environment variables:
+  export MIRO_ACCESS_TOKEN="your-token"
+  export MIRO_USER_EMAIL="you@example.com"
+  miro-mcp-proxy
+
+EOF
+    exit 0
+}
+
+# Parse command-line arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --url)
+            URL="$2"
+            shift 2
+            ;;
+        --token)
+            TOKEN="$2"
+            shift 2
+            ;;
+        --email)
+            EMAIL="$2"
+            shift 2
+            ;;
+        --help|-h)
+            show_help
+            ;;
+        *)
+            echo "Error: Unknown option: $1" >&2
+            echo "Use --help for usage information" >&2
+            exit 1
+            ;;
+    esac
+done
+
+# Validate required parameters
+if [[ -z "$TOKEN" ]]; then
+    echo "Error: Authorization token is required" >&2
+    echo "Provide it via --token flag or MIRO_ACCESS_TOKEN environment variable" >&2
+    exit 1
+fi
+
+if [[ -z "$EMAIL" ]]; then
+    echo "Error: User email is required" >&2
+    echo "Provide it via --email flag or MIRO_USER_EMAIL environment variable" >&2
+    exit 1
+fi
+
+# Signal handlers
+cleanup() {
+    echo "Proxy stopped" >&2
+    exit 0
+}
+
+trap cleanup SIGINT SIGTERM
+
+# Send a message to the MCP server and handle the response
+send_message() {
+    local message="$1"
+    local method
+    local msg_id
+
+    # Extract method and id for logging (basic parsing)
+    method=$(echo "$message" | grep -o '"method":"[^"]*"' | cut -d'"' -f4 || echo "response")
+    msg_id=$(echo "$message" | grep -o '"id":[^,}]*' | cut -d':' -f2 | tr -d ' ' || echo "unknown")
+
+    echo "Sending: ${method} (id: ${msg_id})" >&2
+
+    # Make the request and handle the response
+    local content_type
+    content_type=$(curl -s -D - -X POST "$URL" \
+        -H "Authorization: Bearer $TOKEN" \
+        -H "X-User-Email: $EMAIL" \
+        -H "Content-Type: application/json" \
+        -H "Accept: application/json, text/event-stream" \
+        -d "$message" \
+        --no-buffer \
+        2>/dev/null | grep -i "^content-type:" | cut -d: -f2 | tr -d ' \r\n' || echo "")
+
+    # Send the request again to get the body (curl can't easily split headers and body streaming)
+    if [[ "$content_type" == *"text/event-stream"* ]]; then
+        # Handle SSE response
+        curl -s -N -X POST "$URL" \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "X-User-Email: $EMAIL" \
+            -H "Content-Type: application/json" \
+            -H "Accept: application/json, text/event-stream" \
+            -d "$message" \
+            2>/dev/null | while IFS= read -r line; do
+                if [[ "$line" == data:* ]]; then
+                    local data="${line#data:}"
+                    data="${data# }"  # Trim leading space
+                    if [[ -n "$data" && "$data" != "[DONE]" ]]; then
+                        # Validate JSON before outputting
+                        if echo "$data" | python3 -m json.tool >/dev/null 2>&1 || echo "$data" | jq . >/dev/null 2>&1; then
+                            echo "$data"
+                        else
+                            echo "Invalid JSON in SSE: $data" >&2
+                        fi
+                    fi
+                fi
+            done
+    elif [[ "$content_type" == *"application/json"* ]]; then
+        # Handle JSON response
+        curl -s -X POST "$URL" \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "X-User-Email: $EMAIL" \
+            -H "Content-Type: application/json" \
+            -H "Accept: application/json, text/event-stream" \
+            -d "$message" \
+            2>/dev/null
+    else
+        echo "Unexpected content-type: $content_type" >&2
+    fi
+}
+
+# Main loop - read from stdin and process messages
+main() {
+    echo "Connected to: $URL" >&2
+    echo "User: $EMAIL" >&2
+    echo "Ready - waiting for messages..." >&2
+
+    while IFS= read -r line; do
+        # Skip empty lines
+        [[ -z "$line" ]] && continue
+
+        # Validate JSON
+        if echo "$line" | python3 -m json.tool >/dev/null 2>&1 || echo "$line" | jq . >/dev/null 2>&1; then
+            send_message "$line"
+        else
+            echo "Invalid JSON from stdin: $line" >&2
+        fi
+    done
+
+    echo "Stdin closed" >&2
+}
+
+# Run the proxy
+main

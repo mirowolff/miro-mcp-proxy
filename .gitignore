@@ -1,0 +1,33 @@
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Compiled binary from Bun (if you build the TypeScript version)
+# Note: The bash script is also named miro-mcp-proxy and should NOT be ignored
+# miro-mcp-proxy
+
+# Dependencies
+node_modules/
+bun.lockb
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+#zip files
+*.zip
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
