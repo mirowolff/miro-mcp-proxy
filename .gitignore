@@ -23,9 +23,6 @@ bun.lockb
 .AppleDouble
 .LSOverride
 
-#zip files
-*.zip
-
 # Logs
 *.log
 npm-debug.log*
