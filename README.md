@@ -44,8 +44,7 @@ miro-mcp-proxy --help
 git clone https://github.com/mirowolff/miro-mcp-proxy.git
 cd miro-mcp-proxy
 
-# The script is ready to use
-chmod +x miro-mcp-proxy
+# The script is already executable, ready to use
 ./miro-mcp-proxy --help
 ```
 
