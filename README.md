@@ -19,25 +19,34 @@ No prerequisites - the bash script uses tools built into macOS.
 
 ## Installation
 
+### Quick Install (recommended)
+
+Download the script directly using curl:
+
+```bash
+# Download the script
+curl -O https://raw.githubusercontent.com/mirowolff/miro-mcp-proxy/main/miro-mcp-proxy
+
+# Make it executable
+chmod +x miro-mcp-proxy
+
+# Optional: Move to a directory in your PATH
+sudo mv miro-mcp-proxy /usr/local/bin/
+
+# Test it
+miro-mcp-proxy --help
+```
+
+### Install from Source
+
 ```bash
 # Clone the repository
-git clone https://github.com/bitbonsai/miro-mcp-proxy.git
+git clone https://github.com/mirowolff/miro-mcp-proxy.git
 cd miro-mcp-proxy
-
-# Create a .env file with your credentials (optional)
-cat > .env << EOF
-MIRO_ACCESS_TOKEN="your-token"
-MIRO_USER_EMAIL="you@example.com"
-EOF
 
 # The script is ready to use
 chmod +x miro-mcp-proxy
-
-# Run with .env file (no arguments needed)
-./miro-mcp-proxy
-
-# Or pass credentials directly
-./miro-mcp-proxy --token "your-token" --email "you@example.com"
+./miro-mcp-proxy --help
 ```
 
 ## Usage
