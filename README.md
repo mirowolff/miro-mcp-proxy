@@ -5,9 +5,8 @@ MCP SSE to stdio proxy for Miro Design System. This proxy bridges the Miro Desig
 ## Installation
 
 1. Generate your access token at [https://miro.design/mcp/token](https://miro.design/mcp/token)
-2. Download the script: [miro-mcp-proxy.txt](https://raw.githubusercontent.com/mirowolff/miro-mcp-proxy/main/miro-mcp-proxy)
+2. Download the script: [miro-mcp-proxy.txt](https://raw.githubusercontent.com/mirowolff/miro-mcp-proxy/main/miro-mcp-proxy) (Optional: Rename from `.txt` to `.sh` extension)
 3. Right-click → "Save As..." and save it anywhere on your computer
-4. Optional: Rename from `.txt` to `.sh` extension
 
 ## Claude Desktop Configuration
 
@@ -31,7 +30,7 @@ Add this to your Claude Desktop config:
 ```
 
 Replace:
-- `/Users/yourname/Downloads/miro-mcp-proxy.txt` with the actual path where you saved the file
+- `/Users/yourname/Downloads/miro-mcp-proxy.txt` with the actual path where you saved the file (To find your username: open Finder and look for the house icon in the sidebar)
 - `your-token-here` with your Miro access token
 - `your-email@example.com` with your Miro user email
 
