@@ -12,7 +12,6 @@ MCP SSE to stdio proxy for Miro Design System. This proxy bridges the Miro Desig
 **macOS config path**: `~/Library/Application Support/Claude/claude_desktop_config.json`
 
 ```json
-{
   "mcpServers": {
     "Miro DS MCP": {
       "command": "bash",
@@ -23,7 +22,6 @@ MCP SSE to stdio proxy for Miro Design System. This proxy bridges the Miro Desig
       }
     }
   }
-}
 ```
 
 Replace:
