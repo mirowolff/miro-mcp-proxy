@@ -17,7 +17,7 @@ Add this to your Claude Desktop config:
 ```json
 {
   "mcpServers": {
-    "miro": {
+    "MDS MCP": {
       "command": "bash",
       "args": ["/Users/yourname/Downloads/miro-mcp-proxy.txt"],
       "env": {
