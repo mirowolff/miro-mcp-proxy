@@ -19,34 +19,13 @@ No prerequisites - the bash script uses tools built into macOS.
 
 ## Installation
 
-### Quick Install (recommended)
+### Simple Installation (Copy & Paste)
 
-Download the script directly using curl:
+1. Download the script from GitHub: [miro-mcp-proxy](https://raw.githubusercontent.com/mirowolff/miro-mcp-proxy/main/miro-mcp-proxy)
+2. Right-click → "Save As..." and save it anywhere on your computer (e.g., `~/miro-mcp-proxy`)
+3. That's it! No need to set permissions - we'll use `bash` to run it
 
-```bash
-# Download the script
-curl -O https://raw.githubusercontent.com/mirowolff/miro-mcp-proxy/main/miro-mcp-proxy
-
-# Make it executable
-chmod +x miro-mcp-proxy
-
-# Optional: Move to a directory in your PATH
-sudo mv miro-mcp-proxy /usr/local/bin/
-
-# Test it
-miro-mcp-proxy --help
-```
-
-### Install from Source
-
-```bash
-# Clone the repository
-git clone https://github.com/mirowolff/miro-mcp-proxy.git
-cd miro-mcp-proxy
-
-# The script is already executable, ready to use
-./miro-mcp-proxy --help
-```
+Or copy the script content directly from the repo and save it as a file.
 
 ## Usage
 
@@ -111,12 +90,13 @@ Add this configuration to your Claude Desktop config file:
 
 **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
 
-Or using environment variables (recommended):
+Using environment variables (recommended):
 ```json
 {
   "mcpServers": {
     "miro": {
-      "command": "/path/to/miro-mcp-proxy",
+      "command": "bash",
+      "args": ["/path/to/miro-mcp-proxy"],
       "env": {
         "MIRO_ACCESS_TOKEN": "your-token",
         "MIRO_USER_EMAIL": "you@example.com"
@@ -126,18 +106,20 @@ Or using environment variables (recommended):
 }
 ```
 
-Using command-line arguments:
+Or using command-line arguments:
 
 ```json
 {
   "mcpServers": {
     "miro": {
-      "command": "/path/to/miro-mcp-proxy",
-      "args": ["--token", "your-token", "--email", "you@example.com"]
+      "command": "bash",
+      "args": ["/path/to/miro-mcp-proxy", "--token", "your-token", "--email", "you@example.com"]
     }
   }
 }
 ```
+
+Replace `/path/to/miro-mcp-proxy` with the actual path where you saved the script (e.g., `/Users/yourname/miro-mcp-proxy`).
 
 ## How It Works
 
