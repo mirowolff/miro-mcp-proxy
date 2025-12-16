@@ -141,12 +141,15 @@
             navigator.clipboard.writeText(INSTALL_COMMAND).then(() => {
                 const circleBtn = event.currentTarget;
                 const terminalContent = document.querySelector('.terminal-content');
+                const navBtn = document.querySelector('.nav-copy-btn');
 
                 toggleCopyState(circleBtn, '.copy-icon', '.check-icon', true);
+                if (navBtn) toggleCopyState(navBtn, '.copy-icon-nav', '.check-icon-nav', true);
                 if (terminalContent) terminalContent.classList.add('copied');
 
                 setTimeout(() => {
                     toggleCopyState(circleBtn, '.copy-icon', '.check-icon', false);
+                    if (navBtn) toggleCopyState(navBtn, '.copy-icon-nav', '.check-icon-nav', false);
                     if (terminalContent) terminalContent.classList.remove('copied');
                 }, 2000);
             });
@@ -155,16 +158,15 @@
         function copyCommandFromBox(element) {
             navigator.clipboard.writeText(INSTALL_COMMAND).then(() => {
                 const circleBtn = document.querySelector('.copy-btn-circle');
+                const navBtn = document.querySelector('.nav-copy-btn');
 
-                if (circleBtn) {
-                    toggleCopyState(circleBtn, '.copy-icon', '.check-icon', true);
-                }
+                if (circleBtn) toggleCopyState(circleBtn, '.copy-icon', '.check-icon', true);
+                if (navBtn) toggleCopyState(navBtn, '.copy-icon-nav', '.check-icon-nav', true);
                 element.classList.add('copied');
 
                 setTimeout(() => {
-                    if (circleBtn) {
-                        toggleCopyState(circleBtn, '.copy-icon', '.check-icon', false);
-                    }
+                    if (circleBtn) toggleCopyState(circleBtn, '.copy-icon', '.check-icon', false);
+                    if (navBtn) toggleCopyState(navBtn, '.copy-icon-nav', '.check-icon-nav', false);
                     element.classList.remove('copied');
                 }, 2000);
             });
