@@ -2,10 +2,27 @@
 
 MCP SSE to stdio proxy for Miro Design System. This proxy bridges the Miro Design System SSE (Server-Sent Events) MCP server to Claude Desktop's stdio transport protocol.
 
-## Installation
+## Quick Installation
 
-1. Download the script: [miro-mcp-proxy.txt](https://raw.githubusercontent.com/mirowolff/miro-mcp-proxy/main/miro-mcp-proxy) (Optional: Rename from `.txt` to `.sh` extension)
-   - Right-click → "Save As..." and save it anywhere on your computer
+Copy and paste this command into your terminal:
+
+```bash
+curl -fsSL https://mirowolff.github.io/miro-mcp-proxy/install.sh | bash
+```
+
+The installer will:
+1. Download the proxy script to `~/.miro-mcp-proxy.sh`
+2. Prompt you for your Miro access token and email
+3. Automatically configure Claude Desktop
+4. Be ready to use after restarting Claude Desktop
+
+**Generate your access token at**: [https://miro.design/mcp/token](https://miro.design/mcp/token)
+
+## Manual Installation
+
+If you prefer to install manually:
+
+1. Download the script: [miro-mcp-proxy](https://raw.githubusercontent.com/mirowolff/miro-mcp-proxy/main/miro-mcp-proxy)
 2. Generate your access token at [https://miro.design/mcp/token](https://miro.design/mcp/token)
 3. Add this configuration to your Claude Desktop config:
 
@@ -15,7 +32,7 @@ MCP SSE to stdio proxy for Miro Design System. This proxy bridges the Miro Desig
   "mcpServers": {
     "Miro DS MCP": {
       "command": "bash",
-      "args": ["/Users/yourname/Downloads/miro-mcp-proxy.txt"],
+      "args": ["/path/to/miro-mcp-proxy"],
       "env": {
         "MIRO_ACCESS_TOKEN": "your-token-here",
         "MIRO_USER_EMAIL": "your-email@example.com"
@@ -25,7 +42,7 @@ MCP SSE to stdio proxy for Miro Design System. This proxy bridges the Miro Desig
 ```
 
 Replace:
-- `/Users/yourname/Downloads/miro-mcp-proxy.txt` with the actual path where you saved the file (To find your username: open Finder and look for the house icon in the sidebar)
+- `/path/to/miro-mcp-proxy` with the actual path where you saved the file
 - `your-token-here` with your Miro access token
 - `your-email@example.com` with your Miro user email
 
