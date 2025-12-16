@@ -6,13 +6,11 @@ function copyCommand(event) {
         const btn = event.currentTarget;
         const copyIcon = btn.querySelector('.copy-icon');
         const checkIcon = btn.querySelector('.check-icon');
-        const copyText = btn.querySelector('.copy-text');
         const terminalContent = document.querySelector('.terminal-content');
 
         // Update button
         copyIcon.style.display = 'none';
         checkIcon.style.display = 'block';
-        copyText.textContent = 'Copied!';
         btn.classList.add('copied');
 
         // Update terminal box
@@ -22,7 +20,6 @@ function copyCommand(event) {
         setTimeout(() => {
             copyIcon.style.display = 'block';
             checkIcon.style.display = 'none';
-            copyText.textContent = 'Copy';
             btn.classList.remove('copied');
             terminalContent.classList.remove('copied');
         }, 2000);

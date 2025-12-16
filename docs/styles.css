@@ -220,7 +220,7 @@ h1 {
 .terminal-content {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: 12px;
     padding: 20px 28px;
     background: rgba(248, 249, 250, 0.8);
@@ -229,11 +229,10 @@ h1 {
     border: 1px solid var(--border);
     border-radius: 999px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     transition: all 0.3s ease;
-    cursor: pointer;
 }
 
 .terminal-content::before {
@@ -245,15 +244,6 @@ h1 {
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.08), transparent);
     transition: left 0.6s ease;
-}
-
-.terminal-content:hover {
-    border-color: var(--accent);
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.12);
-}
-
-.terminal-content:hover::before {
-    left: 100%;
 }
 
 .terminal-content.copied {
@@ -307,54 +297,37 @@ h1 {
     }
 }
 
-.hero-actions {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.copy-btn,
-.github-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
-    font-size: 15px;
-    font-weight: 600;
-    border-radius: var(--radius);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-}
-
-.copy-btn {
+.copy-btn-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
     background: var(--miro-blue);
     color: white;
     border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
 }
 
-.copy-btn:hover {
+.copy-btn-circle:hover {
     background: #2847e6;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(56, 89, 255, 0.3);
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(56, 89, 255, 0.4);
 }
 
-.copy-btn.copied {
+.copy-btn-circle.copied {
     background: var(--green);
 }
 
-.github-btn {
-    background: white;
-    color: var(--text);
-    border: 1px solid var(--border);
-}
-
-.github-btn:hover {
-    background: var(--bg-elevated);
-    border-color: var(--accent);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+.terminal-instructions {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 20px;
 }
 
 
