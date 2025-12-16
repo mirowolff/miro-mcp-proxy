@@ -393,7 +393,7 @@ h1 {
 .steps-grid::before {
     content: '';
     position: absolute;
-    left: 24px;
+    left: 34px;
     top: 48px;
     bottom: 48px;
     width: 2px;
