@@ -72,32 +72,52 @@ if [[ ! -f "$CONFIG_PATH" ]]; then
 EOF
     echo -e "${GREEN}✓${NC} Created new configuration"
 else
-    # Update existing config
-    # Check if jq is available
-    if command -v jq &> /dev/null; then
-        # Use jq to properly merge the configuration
-        TMP_CONFIG=$(mktemp)
-        jq --arg proxy_path "$PROXY_PATH" \
-           --arg token "$MIRO_TOKEN" \
-           --arg email "$MIRO_EMAIL" \
-           '.mcpServers["Miro DS MCP"] = {
-               "command": "bash",
-               "args": [$proxy_path],
-               "env": {
-                   "MIRO_ACCESS_TOKEN": $token,
-                   "MIRO_USER_EMAIL": $email
-               }
-           }' "$CONFIG_PATH" > "$TMP_CONFIG"
-        mv "$TMP_CONFIG" "$CONFIG_PATH"
+    # Update existing config using Python (available by default on macOS)
+    BACKUP_PATH="${CONFIG_PATH}.backup.$(date +%Y%m%d_%H%M%S)"
+    cp "$CONFIG_PATH" "$BACKUP_PATH"
+
+    python3 << EOF
+import json
+import sys
+
+config_path = "$CONFIG_PATH"
+proxy_path = "$PROXY_PATH"
+token = "$MIRO_TOKEN"
+email = "$MIRO_EMAIL"
+
+try:
+    with open(config_path, 'r') as f:
+        config = json.load(f)
+
+    # Ensure mcpServers exists
+    if 'mcpServers' not in config:
+        config['mcpServers'] = {}
+
+    # Add or update Miro DS MCP configuration
+    config['mcpServers']['Miro DS MCP'] = {
+        'command': 'bash',
+        'args': [proxy_path],
+        'env': {
+            'MIRO_ACCESS_TOKEN': token,
+            'MIRO_USER_EMAIL': email
+        }
+    }
+
+    with open(config_path, 'w') as f:
+        json.dump(config, f, indent=2)
+
+    print("success")
+except Exception as e:
+    print(f"error: {e}", file=sys.stderr)
+    sys.exit(1)
+EOF
+
+    if [ $? -eq 0 ]; then
         echo -e "${GREEN}✓${NC} Updated existing configuration"
+        echo -e "${YELLOW}ℹ${NC} Backup created at: $BACKUP_PATH"
     else
-        # Fallback: create backup and manual instructions
-        BACKUP_PATH="${CONFIG_PATH}.backup.$(date +%Y%m%d_%H%M%S)"
-        cp "$CONFIG_PATH" "$BACKUP_PATH"
-        echo -e "${YELLOW}⚠${NC} jq not found. Created backup at:"
-        echo "  $BACKUP_PATH"
-        echo ""
-        echo -e "${YELLOW}Please manually add this to your config:${NC}"
+        echo -e "${RED}✗${NC} Failed to update configuration"
+        echo -e "${YELLOW}⚠${NC} Please manually add this to your config:"
         echo ""
         cat << EOF
   "mcpServers": {
@@ -112,7 +132,7 @@ else
   }
 EOF
         echo ""
-        exit 0
+        exit 1
     fi
 fi
 
