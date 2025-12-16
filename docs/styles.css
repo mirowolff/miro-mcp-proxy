@@ -7,7 +7,7 @@
 :root {
     --bg: #f5f5f5;
     --bg-elevated: #f8f9fa;
-    --text: #1a1a1a;
+    --text: #222428;
     --text-muted: #6b7280;
     --accent: #6366f1;
     --accent-bright: #818cf8;
@@ -15,6 +15,7 @@
     --green-bright: #34d399;
     --border: #e5e7eb;
     --miro-blue: #3859ff;
+    --radius: 8px;
 }
 
 html {
@@ -98,10 +99,10 @@ nav {
 }
 
 .nav-container {
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-radius: 16px;
+    border-radius: var(--radius);
     padding: 12px 20px;
     border: 1px solid var(--border);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
@@ -185,9 +186,9 @@ h1 {
     font-size: clamp(48px, 7vw, 96px);
     font-weight: 700;
     letter-spacing: -0.015em;
-    line-height: 1.05;
+    line-height: 1.15;
     margin-bottom: 20px;
-    background: linear-gradient(180deg, #1a1a1a 0%, #6b7280 100%);
+    background: linear-gradient(180deg, #222428 0%, #6b7280 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -226,7 +227,7 @@ h1 {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--border);
-    border-radius: 16px;
+    border-radius: var(--radius);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
     margin-bottom: 20px;
     position: relative;
@@ -321,7 +322,7 @@ h1 {
     padding: 12px 24px;
     font-size: 15px;
     font-weight: 600;
-    border-radius: 12px;
+    border-radius: var(--radius);
     cursor: pointer;
     transition: all 0.3s ease;
     text-decoration: none;
@@ -385,37 +386,50 @@ h1 {
 }
 
 .steps-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 24px;
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.steps-grid::before {
+    content: '';
+    position: absolute;
+    left: 24px;
+    top: 48px;
+    bottom: 48px;
+    width: 2px;
+    background: var(--border);
+    z-index: 0;
 }
 
 .step-card {
-    background: rgba(248, 249, 250, 0.5);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 32px 24px;
-    transition: all 0.3s ease;
-}
-
-.step-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-    border-color: var(--accent);
+    position: relative;
+    display: flex;
+    gap: 24px;
+    padding: 20px 0;
+    z-index: 1;
 }
 
 .step-number {
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%);
-    color: white;
+    background: white;
+    border: 2px solid var(--miro-blue);
+    color: var(--miro-blue);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
-    margin-bottom: 20px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.step-content {
+    flex: 1;
+    padding-top: 8px;
 }
 
 .step-title {
