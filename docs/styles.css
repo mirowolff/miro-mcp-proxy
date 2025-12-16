@@ -148,6 +148,9 @@ nav {
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
+    border: none;
+    background: transparent;
+    cursor: pointer;
 }
 
 .nav-link:hover {
@@ -158,6 +161,11 @@ nav {
 .nav-link.active {
     color: var(--text);
     background: rgba(99, 102, 241, 0.12);
+}
+
+.nav-copy-btn.copied {
+    color: var(--green);
+    background: rgba(16, 185, 129, 0.08);
 }
 
 .nav-version {
