@@ -99,9 +99,9 @@ nav {
 }
 
 .nav-container {
-    background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(9px);
+    -webkit-backdrop-filter: blur(9px);
     border-radius: var(--radius);
     padding: 12px 20px;
     border: 1px solid var(--border);
@@ -172,7 +172,7 @@ nav {
 
 /* Hero Section */
 .hero {
-    padding: 80px 0 80px;
+    padding: 42px 0 0 0;
     text-align: center;
 }
 
@@ -328,7 +328,7 @@ h1 {
 
 /* Features Section */
 .features {
-    padding: 80px 0;
+    padding: 42px 0;
 }
 
 .section-header {
@@ -373,7 +373,7 @@ h1 {
     position: relative;
     display: flex;
     gap: 24px;
-    padding: 20px 0;
+    padding: 16px 0;
     z-index: 1;
 }
 
