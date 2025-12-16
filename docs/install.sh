@@ -15,10 +15,24 @@ NC='\033[0m' # No Color
 PROXY_PATH="$HOME/.miro-mcp-proxy.sh"
 CONFIG_PATH="$HOME/Library/Application Support/Claude/claude_desktop_config.json"
 
-echo -e "${BLUE}╔════════════════════════════════════════╗${NC}"
-echo -e "${BLUE}║   Miro MCP Proxy Installer           ║${NC}"
-echo -e "${BLUE}╚════════════════════════════════════════╝${NC}"
 echo ""
+echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${BLUE}  📦 Miro MCP Proxy Installer${NC}"
+echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo ""
+
+# Check if running in a pipe (non-interactive)
+if [ ! -t 0 ]; then
+    echo -e "${YELLOW}⚠ Interactive mode required${NC}"
+    echo ""
+    echo "This installer needs to prompt for your credentials."
+    echo "Please download and run it directly instead:"
+    echo ""
+    echo -e "${BLUE}  curl -fsSL https://mirowolff.github.io/miro-mcp-proxy/install.sh -o install.sh${NC}"
+    echo -e "${BLUE}  bash install.sh${NC}"
+    echo ""
+    exit 1
+fi
 
 # Download the proxy script
 echo -e "${BLUE}→${NC} Downloading proxy script..."
@@ -36,7 +50,7 @@ echo -e "${GREEN}✓${NC} Made executable"
 # Prompt for credentials
 echo ""
 echo -e "${YELLOW}Configuration${NC}"
-echo "Generate your token at: ${BLUE}https://miro.design/mcp/token${NC}"
+echo -e "Generate your token at: ${BLUE}https://miro.design/mcp/token${NC}"
 echo ""
 read -p "Enter your Miro access token: " MIRO_TOKEN
 read -p "Enter your Miro email: " MIRO_EMAIL
@@ -195,9 +209,9 @@ EOF
 fi
 
 echo ""
-echo -e "${GREEN}╔════════════════════════════════════════╗${NC}"
-echo -e "${GREEN}║   Installation Complete! 🎉           ║${NC}"
-echo -e "${GREEN}╚════════════════════════════════════════╝${NC}"
+echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${GREEN}  ✅ Installation Complete!${NC}"
+echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
 echo -e "${BLUE}Next steps:${NC}"
 echo "1. Restart Claude Desktop"
