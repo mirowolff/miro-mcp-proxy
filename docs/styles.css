@@ -193,6 +193,7 @@ h1 {
     line-height: 1.05;
     margin-bottom: 4rem;
     color: var(--text);
+    opacity: .81;
 }
 
 h1 .h1-muted {
