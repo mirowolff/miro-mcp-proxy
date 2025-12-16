@@ -31,8 +31,11 @@
                             <span class="cmd">curl</span>
                             <span class="flag">-fsSL</span>
                             <span class="url">https://mirowolff.github.io/miro-mcp-proxy/install.sh</span>
-                            <span class="pipe">|</span>
+                            <span class="flag">-o</span>
+                            <span class="string">install.sh</span>
+                            <span class="pipe">&&</span>
                             <span class="cmd">bash</span>
+                            <span class="string">install.sh</span>
                         </code>
                         <button class="copy-btn-circle" onclick="copyCommand(event)" aria-label="Copy install command">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -147,7 +150,7 @@
     </footer>
 
     <script>
-        const INSTALL_COMMAND = 'curl -fsSL -H "Cache-Control: no-cache" https://mirowolff.github.io/miro-mcp-proxy/install.sh | bash';
+        const INSTALL_COMMAND = 'curl -fsSL https://mirowolff.github.io/miro-mcp-proxy/install.sh -o install.sh && bash install.sh';
 
         function updateAllCopyButtons(isCopied) {
             const navBtn = document.querySelector('.nav-copy-btn');

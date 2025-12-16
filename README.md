@@ -7,7 +7,7 @@ MCP SSE to stdio proxy for Miro Design System. This proxy bridges the Miro Desig
 Copy and paste this command into your terminal:
 
 ```bash
-curl -fsSL -H "Cache-Control: no-cache" https://mirowolff.github.io/miro-mcp-proxy/install.sh | bash
+curl -fsSL https://mirowolff.github.io/miro-mcp-proxy/install.sh -o install.sh && bash install.sh
 ```
 
 The installer will:
