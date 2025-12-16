@@ -21,19 +21,6 @@ echo -e "${BLUE}  📦 Miro MCP Proxy Installer${NC}"
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
 
-# Check if running in a pipe (non-interactive)
-if [ ! -t 0 ]; then
-    echo -e "${YELLOW}⚠ Interactive mode required${NC}"
-    echo ""
-    echo "This installer needs to prompt for your credentials."
-    echo "Please download and run it directly instead:"
-    echo ""
-    echo -e "${BLUE}  curl -fsSL https://mirowolff.github.io/miro-mcp-proxy/install.sh -o install.sh${NC}"
-    echo -e "${BLUE}  bash install.sh${NC}"
-    echo ""
-    exit 1
-fi
-
 # Download the proxy script
 echo -e "${BLUE}→${NC} Downloading proxy script..."
 if curl -fsSL https://raw.githubusercontent.com/mirowolff/miro-mcp-proxy/main/miro-mcp-proxy -o "$PROXY_PATH"; then
@@ -52,8 +39,8 @@ echo ""
 echo -e "${YELLOW}Configuration${NC}"
 echo -e "Generate your token at: ${BLUE}https://miro.design/mcp/token${NC}"
 echo ""
-read -p "Enter your Miro access token: " MIRO_TOKEN
-read -p "Enter your Miro email: " MIRO_EMAIL
+read -p "Enter your Miro access token: " MIRO_TOKEN < /dev/tty
+read -p "Enter your Miro email: " MIRO_EMAIL < /dev/tty
 
 if [[ -z "$MIRO_TOKEN" ]] || [[ -z "$MIRO_EMAIL" ]]; then
     echo -e "${RED}✗${NC} Token and email are required"
