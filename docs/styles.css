@@ -233,8 +233,13 @@ h1 {
     position: relative;
     overflow: visible;
     transition: all 0.3s ease;
+    cursor: pointer;
 }
 
+.terminal-content:hover {
+    border-color: var(--miro-blue);
+    box-shadow: 0 20px 60px rgba(56, 89, 255, 0.15);
+}
 
 .terminal-content.copied {
     border-color: var(--green);
