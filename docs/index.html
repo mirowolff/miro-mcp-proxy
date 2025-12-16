@@ -122,73 +122,59 @@
     <script>
         const INSTALL_COMMAND = 'curl -fsSL https://mirowolff.github.io/miro-mcp-proxy/install.sh | bash';
 
-        function toggleCopyState(button, iconClass, checkClass, isCopied) {
-            if (!button) return;
+        function updateAllCopyButtons(isCopied) {
+            const navBtn = document.querySelector('.nav-copy-btn');
+            const circleBtn = document.querySelector('.copy-btn-circle');
+            const terminalContent = document.querySelector('.terminal-content');
 
-            const copyIcon = button.querySelector(iconClass);
-            const checkIcon = button.querySelector(checkClass);
+            // Update navbar button
+            if (navBtn) {
+                const navCopy = navBtn.querySelector('.copy-icon-nav');
+                const navCheck = navBtn.querySelector('.check-icon-nav');
+                if (navCopy && navCheck) {
+                    navCopy.style.display = isCopied ? 'none' : 'block';
+                    navCheck.style.display = isCopied ? 'block' : 'none';
+                    navBtn.classList.toggle('copied', isCopied);
+                }
+            }
 
-            if (copyIcon && checkIcon) {
-                copyIcon.style.display = isCopied ? 'none' : 'block';
-                checkIcon.style.display = isCopied ? 'block' : 'none';
-                button.classList.toggle('copied', isCopied);
+            // Update circle button
+            if (circleBtn) {
+                const circleCopy = circleBtn.querySelector('.copy-icon');
+                const circleCheck = circleBtn.querySelector('.check-icon');
+                if (circleCopy && circleCheck) {
+                    circleCopy.style.display = isCopied ? 'none' : 'block';
+                    circleCheck.style.display = isCopied ? 'block' : 'none';
+                    circleBtn.classList.toggle('copied', isCopied);
+                }
+            }
+
+            // Update terminal box
+            if (terminalContent) {
+                terminalContent.classList.toggle('copied', isCopied);
             }
         }
 
         function copyCommand(event) {
             event.stopPropagation();
-
             navigator.clipboard.writeText(INSTALL_COMMAND).then(() => {
-                const circleBtn = event.currentTarget;
-                const terminalContent = document.querySelector('.terminal-content');
-                const navBtn = document.querySelector('.nav-copy-btn');
-
-                toggleCopyState(circleBtn, '.copy-icon', '.check-icon', true);
-                if (navBtn) toggleCopyState(navBtn, '.copy-icon-nav', '.check-icon-nav', true);
-                if (terminalContent) terminalContent.classList.add('copied');
-
-                setTimeout(() => {
-                    toggleCopyState(circleBtn, '.copy-icon', '.check-icon', false);
-                    if (navBtn) toggleCopyState(navBtn, '.copy-icon-nav', '.check-icon-nav', false);
-                    if (terminalContent) terminalContent.classList.remove('copied');
-                }, 2000);
+                updateAllCopyButtons(true);
+                setTimeout(() => updateAllCopyButtons(false), 2000);
             });
         }
 
         function copyCommandFromBox(element) {
             navigator.clipboard.writeText(INSTALL_COMMAND).then(() => {
-                const circleBtn = document.querySelector('.copy-btn-circle');
-                const navBtn = document.querySelector('.nav-copy-btn');
-
-                if (circleBtn) toggleCopyState(circleBtn, '.copy-icon', '.check-icon', true);
-                if (navBtn) toggleCopyState(navBtn, '.copy-icon-nav', '.check-icon-nav', true);
-                element.classList.add('copied');
-
-                setTimeout(() => {
-                    if (circleBtn) toggleCopyState(circleBtn, '.copy-icon', '.check-icon', false);
-                    if (navBtn) toggleCopyState(navBtn, '.copy-icon-nav', '.check-icon-nav', false);
-                    element.classList.remove('copied');
-                }, 2000);
+                updateAllCopyButtons(true);
+                setTimeout(() => updateAllCopyButtons(false), 2000);
             });
         }
 
         function copyCommandNav(event) {
             event.stopPropagation();
-
             navigator.clipboard.writeText(INSTALL_COMMAND).then(() => {
-                const navBtn = event.currentTarget;
-                const terminalContent = document.querySelector('.terminal-content');
-                const circleBtn = document.querySelector('.copy-btn-circle');
-
-                toggleCopyState(navBtn, '.copy-icon-nav', '.check-icon-nav', true);
-                if (circleBtn) toggleCopyState(circleBtn, '.copy-icon', '.check-icon', true);
-                if (terminalContent) terminalContent.classList.add('copied');
-
-                setTimeout(() => {
-                    toggleCopyState(navBtn, '.copy-icon-nav', '.check-icon-nav', false);
-                    if (circleBtn) toggleCopyState(circleBtn, '.copy-icon', '.check-icon', false);
-                    if (terminalContent) terminalContent.classList.remove('copied');
-                }, 2000);
+                updateAllCopyButtons(true);
+                setTimeout(() => updateAllCopyButtons(false), 2000);
             });
         }
     </script>
