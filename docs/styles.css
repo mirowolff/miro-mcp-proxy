@@ -365,7 +365,7 @@ h1 {
 
 .section-header {
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 
 .section-eyebrow {
@@ -415,34 +415,38 @@ h1 {
     height: 48px;
     border-radius: 50%;
     background: white;
-    border: 2px solid var(--miro-blue);
-    color: var(--miro-blue);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    font-weight: 700;
+    border: 2px solid var(--border);
+    color: var(--text-muted);
+    display: grid;
+    place-items: center;
+    font-size: 16px;
+    font-weight: 600;
     flex-shrink: 0;
     position: relative;
     z-index: 1;
 }
 
-.step-content {
-    flex: 1;
-    padding-top: 8px;
+.step-card:last-child .step-number {
+    border-color: var(--green);
+    color: var(--green);
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
 }
 
-.step-title {
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 8px;
+.step-card:last-child .step-number svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 3;
+}
+
+.step-content {
+    flex: 1;
+    padding-top: 12px;
 }
 
 .step-description {
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.6;
-    color: var(--text-muted);
+    color: var(--text);
 }
 
 .step-description code {
