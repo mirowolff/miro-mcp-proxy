@@ -50,29 +50,4 @@ function copyCommandFromBox(element) {
             element.classList.remove('copied');
         }, 2000);
     });
-
-    navigator.clipboard.writeText(command).then(() => {
-        const btn = document.querySelector('.copy-btn');
-        const copyIcon = btn.querySelector('.copy-icon');
-        const checkIcon = btn.querySelector('.check-icon');
-        const copyText = btn.querySelector('.copy-text');
-
-        // Update button
-        copyIcon.style.display = 'none';
-        checkIcon.style.display = 'block';
-        copyText.textContent = 'Copied!';
-        btn.classList.add('copied');
-
-        // Update terminal box
-        element.classList.add('copied');
-
-        // Reset after 2 seconds
-        setTimeout(() => {
-            copyIcon.style.display = 'block';
-            checkIcon.style.display = 'none';
-            copyText.textContent = 'Copy';
-            btn.classList.remove('copied');
-            element.classList.remove('copied');
-        }, 2000);
-    });
 }
