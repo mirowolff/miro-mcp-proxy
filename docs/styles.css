@@ -191,10 +191,11 @@ h1 {
     letter-spacing: -0.015em;
     line-height: 1.15;
     margin-bottom: 1.25rem;
-    background: linear-gradient(180deg, var(--text) 0%, var(--text-muted) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--text);
+}
+
+h1 .h1-muted {
+    color: var(--text-muted);
 }
 
 .subtitle {
