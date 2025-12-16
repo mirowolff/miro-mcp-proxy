@@ -5,7 +5,7 @@
 }
 
 :root {
-    --bg: #f5f5f5;
+    --bg: #f2f2f2;
     --bg-elevated: #f8f9fa;
     --text: #222428;
     --text-muted: #6b7280;
@@ -33,21 +33,21 @@ body {
     overflow-x: hidden;
 }
 
-/* Light background with subtle white dots */
+/* Light background with subtle dots */
 .ambient {
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: 0;
     overflow: hidden;
-    background: #f5f5f5;
+    background: #f2f2f2;
 }
 
 .ambient::before {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.8) 1.5px, transparent 1.5px);
+    background-image: radial-gradient(circle, #d7d7d8 1.5px, transparent 1.5px);
     background-size: 50px 50px;
     opacity: 0.5;
     animation: drift 240s linear infinite;
