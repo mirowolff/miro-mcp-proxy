@@ -5,7 +5,7 @@
 }
 
 :root {
-    --bg: #ffffff;
+    --bg: #f5f5f5;
     --bg-elevated: #f8f9fa;
     --text: #1a1a1a;
     --text-muted: #6b7280;
@@ -14,6 +14,7 @@
     --green: #10b981;
     --green-bright: #34d399;
     --border: #e5e7eb;
+    --miro-blue: #3859ff;
 }
 
 html {
@@ -31,21 +32,21 @@ body {
     overflow-x: hidden;
 }
 
-/* Light background with subtle indigo dots */
+/* Light background with subtle white dots */
 .ambient {
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: 0;
     overflow: hidden;
-    background: #ffffff;
+    background: #f5f5f5;
 }
 
 .ambient::before {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: radial-gradient(circle, rgba(99, 102, 241, 0.15) 1.5px, transparent 1.5px);
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.8) 1.5px, transparent 1.5px);
     background-size: 50px 50px;
     opacity: 0.5;
     animation: drift 240s linear infinite;
@@ -87,7 +88,7 @@ body {
 /* Navigation Bar */
 nav {
     position: fixed;
-    top: 20px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 9999;
@@ -170,13 +171,13 @@ nav {
 
 /* Hero Section */
 .hero {
-    padding: 140px 0 80px;
+    padding: 80px 0 80px;
     text-align: center;
 }
 
 @media (max-width: 734px) {
     .hero {
-        padding: 100px 0 50px;
+        padding: 60px 0 50px;
     }
 }
 
@@ -327,15 +328,15 @@ h1 {
 }
 
 .copy-btn {
-    background: var(--text);
+    background: var(--miro-blue);
     color: white;
     border: none;
 }
 
 .copy-btn:hover {
-    background: #374151;
+    background: #2847e6;
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 30px rgba(56, 89, 255, 0.3);
 }
 
 .copy-btn.copied {
@@ -355,25 +356,6 @@ h1 {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-.info-note {
-    background: rgba(251, 191, 36, 0.1);
-    border: 1px solid rgba(251, 191, 36, 0.3);
-    border-radius: 12px;
-    padding: 16px 20px;
-    margin: 20px auto;
-    max-width: 600px;
-    font-size: 15px;
-}
-
-.info-note strong {
-    color: #92400e;
-    font-weight: 600;
-}
-
-.info-note a {
-    color: var(--text);
-    text-decoration: underline;
-}
 
 /* Features Section */
 .features {
@@ -458,21 +440,17 @@ h1 {
     font-family: 'SF Mono', 'Monaco', monospace;
 }
 
-/* Footer */
-footer {
-    border-top: 1px solid var(--border);
-    padding: 40px 0;
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 14px;
-}
-
-footer a {
-    color: var(--text);
+.step-description a {
+    color: var(--miro-blue);
     text-decoration: none;
     font-weight: 500;
 }
 
-footer a:hover {
+.step-description a:hover {
     text-decoration: underline;
+}
+
+/* Footer */
+footer {
+    padding: 40px 0 120px;
 }
