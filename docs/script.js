@@ -63,33 +63,51 @@ function copyCommandNav(event) {
 
         const terminalContent = document.querySelector('.terminal-content');
         const circleBtn = document.querySelector('.copy-btn-circle');
-        const circleCopyIcon = circleBtn.querySelector('.copy-icon');
-        const circleCheckIcon = circleBtn.querySelector('.check-icon');
 
         // Update nav button
-        navCopyIcon.style.display = 'none';
-        navCheckIcon.style.display = 'block';
-        navBtn.classList.add('copied');
+        if (navCopyIcon && navCheckIcon) {
+            navCopyIcon.style.display = 'none';
+            navCheckIcon.style.display = 'block';
+            navBtn.classList.add('copied');
+        }
 
         // Update circle button
-        circleCopyIcon.style.display = 'none';
-        circleCheckIcon.style.display = 'block';
-        circleBtn.classList.add('copied');
+        if (circleBtn) {
+            const circleCopyIcon = circleBtn.querySelector('.copy-icon');
+            const circleCheckIcon = circleBtn.querySelector('.check-icon');
+            if (circleCopyIcon && circleCheckIcon) {
+                circleCopyIcon.style.display = 'none';
+                circleCheckIcon.style.display = 'block';
+                circleBtn.classList.add('copied');
+            }
+        }
 
         // Update terminal box
-        terminalContent.classList.add('copied');
+        if (terminalContent) {
+            terminalContent.classList.add('copied');
+        }
 
         // Reset after 2 seconds
         setTimeout(() => {
-            navCopyIcon.style.display = 'block';
-            navCheckIcon.style.display = 'none';
-            navBtn.classList.remove('copied');
+            if (navCopyIcon && navCheckIcon) {
+                navCopyIcon.style.display = 'block';
+                navCheckIcon.style.display = 'none';
+                navBtn.classList.remove('copied');
+            }
 
-            circleCopyIcon.style.display = 'block';
-            circleCheckIcon.style.display = 'none';
-            circleBtn.classList.remove('copied');
+            if (circleBtn) {
+                const circleCopyIcon = circleBtn.querySelector('.copy-icon');
+                const circleCheckIcon = circleBtn.querySelector('.check-icon');
+                if (circleCopyIcon && circleCheckIcon) {
+                    circleCopyIcon.style.display = 'block';
+                    circleCheckIcon.style.display = 'none';
+                    circleBtn.classList.remove('copied');
+                }
+            }
 
-            terminalContent.classList.remove('copied');
+            if (terminalContent) {
+                terminalContent.classList.remove('copied');
+            }
         }, 2000);
     });
 }
