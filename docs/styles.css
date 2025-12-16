@@ -432,11 +432,6 @@ h1 {
     box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
 }
 
-.step-card:last-child .step-number svg {
-    width: 20px;
-    height: 20px;
-    stroke-width: 3;
-}
 
 .step-content {
     flex: 1;
