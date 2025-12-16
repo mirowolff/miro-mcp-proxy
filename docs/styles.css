@@ -270,6 +270,10 @@ h1 .h1-muted {
     color: var(--text-muted);
 }
 
+.terminal-cmd .string {
+    color: var(--text-muted);
+}
+
 .copy-btn-circle {
     width: 2.5rem;
     height: 2.5rem;
