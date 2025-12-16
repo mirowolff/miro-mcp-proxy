@@ -228,7 +228,7 @@ h1 {
 .terminal-content {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 0.75rem;
     padding: 0.5rem 1rem;
     background: rgba(248, 249, 250, 0.8);
@@ -313,6 +313,7 @@ h1 {
     cursor: pointer;
     transition: all 0.3s ease;
     flex-shrink: 0;
+    margin-left: auto;
 }
 
 .copy-btn-circle:hover {
