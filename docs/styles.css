@@ -214,7 +214,7 @@ h1 .h1-muted {
    TERMINAL
    ============================================ */
 .terminal-hero {
-    max-width: 60rem;
+    max-width: 63rem;
     margin: 0 auto;
 }
 
@@ -258,6 +258,9 @@ h1 .h1-muted {
     line-height: 1.6;
     color: var(--text);
     font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .terminal-cmd .cmd {
